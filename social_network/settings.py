@@ -24,7 +24,7 @@ SECRET_KEY = 'b6l&bhn--j@i!eqx4f8-5c5!21#&t8xm-hnf&q+)t_ihd2flob'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mysite.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -36,6 +36,8 @@ INSTALLED_APPS = [
 	'django.contrib.sessions',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
+
+	'social_django',
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -52,6 +54,23 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'social_network.urls'
 
+# TEMPLATES = [
+# 	{
+# 		'BACKEND': 'django.template.backends.django.DjangoTemplates',
+# 		'DIRS': [os.path.join(BASE_DIR, 'templates')]
+# 		,
+# 		'APP_DIRS': True,
+# 		'OPTIONS': {
+# 			'context_processors': [
+# 				'django.template.context_processors.debug',
+# 				'django.template.context_processors.request',
+# 				'django.contrib.auth.context_processors.auth',
+# 				'django.contrib.messages.context_processors.messages',
+# 			],
+# 		},
+# 	},
+# ]
+
 TEMPLATES = [
 	{
 		'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -64,6 +83,9 @@ TEMPLATES = [
 				'django.template.context_processors.request',
 				'django.contrib.auth.context_processors.auth',
 				'django.contrib.messages.context_processors.messages',
+				'social_django.context_processors.backends',
+				'social_django.context_processors.login_redirect',
+
 			],
 		},
 	},
@@ -99,6 +121,12 @@ AUTH_PASSWORD_VALIDATORS = [
 	},
 ]
 
+AUTHENTICATION_BACKENDS = [
+	'social_core.backends.vk.VKOAuth2',
+	'django.contrib.auth.backends.ModelBackend',
+	'account.authentication.EmailAuthBackend',
+]
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -125,3 +153,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
+
+SOCIAL_AUTH_VK_OAUTH2_KEY = '7384050'
+SOCIAL_AUTH_VK_OAUTH2_SECRET = '4TBoHTCvivFnPuZ98cWY'
+
+SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email']
